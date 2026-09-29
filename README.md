@@ -34,28 +34,6 @@ Setelah menyelesaikan notebook ini, mahasiswa mampu:
 
 ---
 
-## Slide online (GitHub Pages)
-
-`index.html` menampilkan slide Pertemuan 1 di browser, di laptop maupun ponsel.
-
-**Cara pakai:**
-- **Pindah slide:** tombol panah ← → , klik sisi kiri/kanan slide, atau geser di ponsel
-- **Layar penuh:** tombol **F** atau ikon layar penuh (cocok untuk presentasi di kelas)
-- **Semua slide:** tombol **G** atau ikon kotak-kotak
-- **Tautan ke slide tertentu:** tambahkan `#nomor` di akhir alamat, misalnya `.../#17` untuk latihan cepat
-- **Menu Materi:** unduh `.pptx`, buka notebook di Colab, atau unduh `.ipynb`
-
-**Langkah mengonlinekan:**
-1. Buat repositori baru di GitHub (misalnya `bsdv-pertemuan-1`), atur sebagai **Public**.
-2. Unggah **seluruh isi folder** (bukan foldernya) ke repositori: **Add file → Upload files**, seret semua file dan folder `slides/`, lalu **Commit changes**.
-3. Buka **Settings → Pages**. Pada *Source* pilih **Deploy from a branch**, *Branch* pilih **main** dan folder **/ (root)**, lalu **Save**.
-4. Tunggu 1–2 menit. Situs tersedia di `https://USERNAME.github.io/NAMA-REPOSITORI/`.
-5. Agar tombol **Buka hands-on di Colab** langsung berfungsi, edit `index.html` dan ganti tiga baris ini:
-   ```js
-   const GITHUB_USER = "USERNAME-GITHUB";
-   const GITHUB_REPO = "NAMA-REPOSITORI";
-   const GITHUB_BRANCH = "main";
-   ```
    Tautan Colab-nya menjadi `https://colab.research.google.com/github/USERNAME/NAMA-REPOSITORI/blob/main/Pertemuan_1_Hands_on_Data_Bisnis_Digital.ipynb`, yang juga bisa dibagikan langsung ke mahasiswa.
 
 **Memperbarui slide:** jika `.pptx` diubah, ekspor ulang tiap slide sebagai gambar (PowerPoint: **File → Export → PNG**, pilih *All slides*), ubah ke 1920×1080, beri nama `slide-01.webp` dst. (atau `.png`, lalu sesuaikan ekstensi pada baris `const src = ...` di `index.html`). Jika jumlah atau judul slide berubah, sesuaikan juga daftar `SLIDES` di `index.html`.
