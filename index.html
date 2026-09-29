@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Pertemuan 1 · Data dalam Bisnis Digital</title>
+<meta name="description" content="Slide Pertemuan 1 mata kuliah Business Statistics and Data Visualization, S1 Bisnis Digital: peran statistika, jenis data, sumber data digital, serta etika dan pelindungan data pribadi.">
+<meta property="og:title" content="Pertemuan 1 · Data dalam Bisnis Digital">
+<meta property="og:description" content="Peran statistika, jenis data, sumber data digital, serta etika dan pelindungan data pribadi.">
+<meta property="og:image" content="slides/cover.jpg">
+<meta name="theme-color" content="#111a30">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2317223f'/%3E%3Crect x='7' y='17' width='4' height='8' rx='1' fill='%2312a4b0'/%3E%3Crect x='14' y='12' width='4' height='13' rx='1' fill='%2312a4b0'/%3E%3Crect x='21' y='7' width='4' height='18' rx='1' fill='%23ee6c4d'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --bg: #0d1426;
+    --chrome: #111a30;
+    --line: #26314d;
+    --text: #e8ecf4;
+    --muted: #9aa5bd;
+    --accent: #12a4b0;
+    --accent-2: #ee6c4d;
+    --btn: #1a2542;
+    --btn-hover: #24325a;
+    --radius: 10px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    display: flex; flex-direction: column;
+    height: 100dvh; overflow: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+  button, a.btn {
+    font: inherit; color: var(--text); background: var(--btn);
+    border: 1px solid var(--line); border-radius: 8px;
+    height: 36px; min-width: 36px; padding: 0 12px;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    cursor: pointer; text-decoration: none; font-size: 14px; white-space: nowrap;
+    transition: background .15s;
+  }
+  button:hover, a.btn:hover { background: var(--btn-hover); }
+  button:focus-visible, a.btn:focus-visible, .thumb:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  svg { width: 18px; height: 18px; flex: none; }
+
+  /* Top bar */
+  header {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px; background: var(--chrome); border-bottom: 1px solid var(--line);
+    padding-top: max(10px, env(safe-area-inset-top));
+  }
+  .title { min-width: 0; flex: 1; }
+  .title .kicker { font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .title h1 { margin: 2px 0 0; font-size: 16px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .actions { display: flex; gap: 8px; align-items: center; }
+  .menu { position: relative; }
+  .menu-list {
+    position: absolute; right: 0; top: 44px; z-index: 30; min-width: 250px;
+    background: var(--chrome); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 6px; display: none; box-shadow: 0 12px 32px rgba(0,0,0,.45);
+  }
+  .menu.open .menu-list { display: block; }
+  .menu-list a {
+    display: flex; gap: 10px; align-items: center; padding: 10px; border-radius: 6px;
+    color: var(--text); text-decoration: none; font-size: 14px;
+  }
+  .menu-list a:hover { background: var(--btn-hover); }
+  .menu-list small { display: block; color: var(--muted); font-size: 12px; }
+
+  /* Stage */
+  main { flex: 1; position: relative; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .frame {
+    position: relative; aspect-ratio: 16 / 9;
+    width: min(100%, calc((100dvh - 150px) * 16 / 9));
+    max-height: 100%;
+    background: #fff; border-radius: 6px; overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,.5);
+  }
+  .frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; display: block; user-select: none; -webkit-user-drag: none; }
+  .hit { position: absolute; top: 0; bottom: 0; width: 35%; cursor: pointer; background: none; border: 0; border-radius: 0; padding: 0; }
+  .hit:hover { background: none; }
+  .hit.prev { left: 0; cursor: w-resize; }
+  .hit.next { right: 0; cursor: e-resize; }
+  .nav {
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 5;
+    width: 44px; height: 44px; border-radius: 50%; padding: 0;
+    background: rgba(17,26,48,.85);
+  }
+  .nav.prev { left: 12px; } .nav.next { right: 12px; }
+  .nav:disabled { opacity: .25; cursor: default; }
+
+  /* Bottom bar */
+  footer {
+    display: flex; align-items: center; gap: 14px; padding: 8px 16px;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
+    background: var(--chrome); border-top: 1px solid var(--line); font-size: 13px; color: var(--muted);
+  }
+  .progress { flex: 1; height: 4px; background: var(--line); border-radius: 2px; overflow: hidden; cursor: pointer; }
+  .progress > div { height: 100%; width: 0; background: var(--accent); transition: width .2s; }
+  .counter { font-variant-numeric: tabular-nums; color: var(--text); min-width: 56px; text-align: center; }
+  .hint kbd {
+    font: 11px ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text);
+    border: 1px solid var(--line); border-bottom-width: 2px; border-radius: 4px; padding: 1px 5px; background: var(--btn);
+  }
+
+  /* Overview grid */
+  .overview {
+    position: fixed; inset: 0; z-index: 40; background: var(--bg);
+    display: none; flex-direction: column;
+  }
+  .overview.open { display: flex; }
+  .overview-head { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid var(--line); }
+  .overview-head h2 { margin: 0; font-size: 16px; font-weight: 600; }
+  .grid {
+    overflow-y: auto; padding: 16px; display: grid; gap: 16px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  }
+  .thumb {
+    background: none; border: 0; padding: 0; height: auto; display: block; text-align: left;
+    color: var(--text); cursor: pointer; border-radius: 8px;
+    white-space: normal; min-width: 0; align-self: start;
+  }
+  .thumb:hover { background: none; }
+  .thumb img { width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 6px; display: block; border: 2px solid transparent; background: #fff; }
+  .thumb:hover img { border-color: var(--line); }
+  .thumb.current img { border-color: var(--accent); }
+  .thumb span { display: block; font-size: 13px; margin-top: 6px; color: var(--muted); line-height: 1.35; }
+  .thumb span b { color: var(--text); font-weight: 600; margin-right: 4px; }
+
+  /* Fullscreen: hide chrome */
+  body.fs header, body.fs footer { display: none; }
+  body.fs main { padding: 0; background: #000; }
+  body.fs .frame { width: min(100vw, 100dvh * 16 / 9); border-radius: 0; box-shadow: none; }
+
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  @media (max-width: 720px) {
+    header { padding: 8px 12px; gap: 8px; }
+    .title .kicker { display: none; }
+    .title h1 { font-size: 14px; }
+    .btn-label, .hint { display: none; }
+    main { padding: 16px 0; }
+    .frame { width: 100%; border-radius: 0; }
+    .nav { display: none; }
+    footer { padding: 8px 12px; }
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 12px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="title">
+    <div class="kicker">Business Statistics &amp; Data Visualization · Pertemuan 1</div>
+    <h1 id="slideTitle">Data dalam Bisnis Digital</h1>
+  </div>
+  <div class="actions">
+    <button id="btnGrid" title="Semua slide (G)" aria-label="Lihat semua slide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      <span class="btn-label">Semua slide</span>
+    </button>
+    <div class="menu" id="menu">
+      <button id="btnMenu" aria-haspopup="true" aria-expanded="false" title="Unduh materi">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 002 2h12a2 2 0 002-2v-2"/></svg>
+        <span class="btn-label">Materi</span>
+      </button>
+      <div class="menu-list" role="menu">
+        <a role="menuitem" href="Pertemuan_1_Data_dalam_Bisnis_Digital.pptx" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          <span>Slide (.pptx)<small>Unduh file PowerPoint asli</small></span>
+        </a>
+        <a role="menuitem" id="linkColab" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 9l-3 3 3 3M16 9l3 3-3 3M13 6l-2 12"/></svg>
+          <span>Buka hands-on di Colab<small>Notebook praktikum Python</small></span>
+        </a>
+        <a role="menuitem" href="Pertemuan_1_Hands_on_Data_Bisnis_Digital.ipynb" download>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3H6a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V9z"/><path d="M14 3v6h6"/></svg>
+          <span>Notebook (.ipynb)<small>Unduh untuk Jupyter</small></span>
+        </a>
+      </div>
+    </div>
+    <button id="btnFs" title="Layar penuh (F)" aria-label="Layar penuh">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>
+    </button>
+  </div>
+</header>
+
+<main id="stage">
+  <button class="nav prev" id="navPrev" aria-label="Slide sebelumnya">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+  </button>
+  <div class="frame" id="frame">
+    <img id="slideImg" src="slides/slide-01.webp" alt="">
+    <button class="hit prev" id="hitPrev" tabindex="-1" aria-hidden="true"></button>
+    <button class="hit next" id="hitNext" tabindex="-1" aria-hidden="true"></button>
+  </div>
+  <button class="nav next" id="navNext" aria-label="Slide berikutnya">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+  </button>
+  <p class="sr-only" id="live" aria-live="polite"></p>
+</main>
+
+<footer>
+  <span class="counter" id="counter">1 / 30</span>
+  <div class="progress" id="progress" title="Klik untuk lompat"><div id="bar"></div></div>
+  <span class="hint"><kbd>←</kbd> <kbd>→</kbd> pindah · <kbd>G</kbd> semua · <kbd>F</kbd> layar penuh</span>
+</footer>
+
+<section class="overview" id="overview" aria-label="Semua slide">
+  <div class="overview-head">
+    <h2>Semua slide</h2>
+    <button id="btnClose" aria-label="Tutup">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      <span class="btn-label">Tutup</span>
+    </button>
+  </div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<script>
+/* ============================================================
+   PENGATURAN: isi dengan akun dan repositori GitHub Anda
+   agar tombol "Buka hands-on di Colab" langsung berfungsi.
+   ============================================================ */
+const GITHUB_USER = "USERNAME-GITHUB";
+const GITHUB_REPO = "NAMA-REPOSITORI";
+const GITHUB_BRANCH = "main";
+const NOTEBOOK = "Pertemuan_1_Hands_on_Data_Bisnis_Digital.ipynb";
+
+const SLIDES = [
+  "Data dalam Bisnis Digital",
+  "Agenda hari ini",
+  "Tujuan pembelajaran",
+  "Kontrak kuliah: aturan main",
+  "Kontrak kuliah: penilaian & persiapan",
+  "01 · Mengapa statistika penting di bisnis digital?",
+  "Jejak data: satu transaksi online",
+  "Statistika deskriptif dan inferensial",
+  "Empat tingkat analitik",
+  "Statistika di balik layar",
+  "02 · Jenis data dan skala pengukuran",
+  "Pohon jenis data",
+  "Empat skala pengukuran (NOIR)",
+  "Skala menentukan analisis",
+  "Tiga struktur data menurut waktu",
+  "Data terstruktur dan tidak terstruktur",
+  "Latihan cepat: klasifikasikan kolom",
+  "Pembahasan latihan",
+  "03 · Sumber data digital",
+  "Enam sumber data utama",
+  "Kepemilikan data",
+  "Kualitas data",
+  "04 · Etika data dan UU PDP",
+  "UU PDP: data pribadi yang dilindungi",
+  "UU PDP: kewajiban dan sanksi",
+  "Lima prinsip etika data",
+  "Diskusi kasus: kebocoran data TokoKita",
+  "Praktikum lab: eksplorasi dataset e-commerce",
+  "Tugas 1: klasifikasi dataset e-commerce",
+  "Rangkuman"
+];
+
+const N = SLIDES.length;
+const src = i => `slides/slide-${String(i + 1).padStart(2, "0")}.webp`;
+const $ = id => document.getElementById(id);
+let cur = 0;
+
+// Link Colab
+const colab = $("linkColab");
+if (GITHUB_USER.startsWith("USERNAME")) {
+  colab.href = NOTEBOOK;
+  colab.removeAttribute("target");
+  colab.querySelector("small").textContent = "Atur GITHUB_USER di index.html";
+} else {
+  colab.href = `https://colab.research.google.com/github/${GITHUB_USER}/${GITHUB_REPO}/blob/${GITHUB_BRANCH}/${NOTEBOOK}`;
+}
+
+// Grid overview
+const grid = $("grid");
+SLIDES.forEach((t, i) => {
+  const b = document.createElement("button");
+  b.className = "thumb";
+  b.innerHTML = `<img loading="lazy" src="${src(i)}" alt=""><span><b>${i + 1}</b>${t}</span>`;
+  b.onclick = () => { go(i); closeGrid(); };
+  grid.appendChild(b);
+});
+
+const cache = {};
+function preload(i) {
+  if (i < 0 || i >= N || cache[i]) return;
+  cache[i] = new Image(); cache[i].src = src(i);
+}
+
+function go(i, push = true) {
+  cur = Math.max(0, Math.min(N - 1, i));
+  const img = $("slideImg");
+  img.src = src(cur);
+  img.alt = `Slide ${cur + 1}: ${SLIDES[cur]}`;
+  $("slideTitle").textContent = SLIDES[cur];
+  $("counter").textContent = `${cur + 1} / ${N}`;
+  $("bar").style.width = `${((cur + 1) / N) * 100}%`;
+  $("navPrev").disabled = cur === 0;
+  $("navNext").disabled = cur === N - 1;
+  $("live").textContent = `Slide ${cur + 1} dari ${N}: ${SLIDES[cur]}`;
+  document.title = `${cur + 1}. ${SLIDES[cur]} · Pertemuan 1`;
+  [...grid.children].forEach((el, k) => el.classList.toggle("current", k === cur));
+  if (push) history.replaceState(null, "", `#${cur + 1}`);
+  preload(cur + 1); preload(cur + 2); preload(cur - 1);
+}
+const next = () => go(cur + 1);
+const prev = () => go(cur - 1);
+
+$("navNext").onclick = next; $("hitNext").onclick = next;
+$("navPrev").onclick = prev; $("hitPrev").onclick = prev;
+
+$("progress").onclick = e => {
+  const r = e.currentTarget.getBoundingClientRect();
+  go(Math.floor(((e.clientX - r.left) / r.width) * N));
+};
+
+// Overview
+function openGrid() {
+  $("overview").classList.add("open");
+  grid.children[cur].scrollIntoView({ block: "center" });
+  grid.children[cur].focus();
+}
+function closeGrid() { $("overview").classList.remove("open"); }
+$("btnGrid").onclick = openGrid;
+$("btnClose").onclick = closeGrid;
+
+// Menu
+const menu = $("menu");
+$("btnMenu").onclick = e => {
+  e.stopPropagation();
+  const open = menu.classList.toggle("open");
+  $("btnMenu").setAttribute("aria-expanded", open);
+};
+document.addEventListener("click", () => { menu.classList.remove("open"); $("btnMenu").setAttribute("aria-expanded", false); });
+
+// Fullscreen
+function toggleFs() {
+  if (!document.fullscreenElement) {
+    (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen)?.call(document.documentElement);
+  } else {
+    (document.exitFullscreen || document.webkitExitFullscreen)?.call(document);
+  }
+}
+document.addEventListener("fullscreenchange", () => document.body.classList.toggle("fs", !!document.fullscreenElement));
+$("btnFs").onclick = toggleFs;
+
+// Keyboard
+document.addEventListener("keydown", e => {
+  if (e.metaKey || e.ctrlKey || e.altKey) return;
+  const gridOpen = $("overview").classList.contains("open");
+  switch (e.key) {
+    case "ArrowRight": case "PageDown": case " ": case "Enter":
+      if (gridOpen) return; e.preventDefault(); next(); break;
+    case "ArrowLeft": case "PageUp": case "Backspace":
+      if (gridOpen) return; e.preventDefault(); prev(); break;
+    case "Home": e.preventDefault(); go(0); break;
+    case "End": e.preventDefault(); go(N - 1); break;
+    case "f": case "F": toggleFs(); break;
+    case "g": case "G": gridOpen ? closeGrid() : openGrid(); break;
+    case "Escape": closeGrid(); menu.classList.remove("open"); break;
+  }
+});
+
+// Swipe
+let sx = null, sy = null;
+$("stage").addEventListener("touchstart", e => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive: true });
+$("stage").addEventListener("touchend", e => {
+  if (sx === null) return;
+  const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+  if (Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)) (dx < 0 ? next : prev)();
+  sx = null;
+}, { passive: true });
+
+// Start from URL hash (#5 = slide 5)
+window.addEventListener("hashchange", () => go((parseInt(location.hash.slice(1)) || 1) - 1, false));
+go((parseInt(location.hash.slice(1)) || 1) - 1, false);
+</script>
+</body>
+</html>
