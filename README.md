@@ -3,7 +3,6 @@
 **Mata kuliah:** Business Statistics and Data Visualization
 **Program studi:** S1 Bisnis Digital
 **Minggu:** 1 · **Sub-CPMK-1** (C2 · A3)
-**Dosen pengampu:** [Nama Dosen Pengampu]
 
 Repositori ini berisi slide Pertemuan 1 yang bisa dibuka langsung di browser, beserta notebook hands-on. Notebook adalah versi Python (Google Colab) dari praktikum lab *"Eksplorasi dataset e-commerce"* pada Pertemuan 1. Langkahnya sama dengan praktikum di spreadsheet: membuka data, mengenali jenis kolom, memfilter, meringkas dengan pivot table, dan membuat grafik pertama. Notebook ini juga berisi latihan kualitas data dan pseudonimisasi data pribadi sesuai UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi.
 
