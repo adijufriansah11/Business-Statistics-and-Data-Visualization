@@ -1,151 +1,241 @@
-# Pertemuan 1 · Data dalam Bisnis Digital
+# Business Statistics and Data Visualization
 
-**Mata kuliah:** Business Statistics and Data Visualization
-**Program studi:** S1 Bisnis Digital
-**Minggu:** 1 · **Sub-CPMK-1** (C2 · A3)
+**Statistika Bisnis dan Visualisasi Data** · Program Studi S1 Bisnis Digital · [Nama Perguruan Tinggi]
 
-Repositori ini berisi slide Pertemuan 1 yang bisa dibuka langsung di browser, beserta notebook hands-on. Notebook adalah versi Python (Google Colab) dari praktikum lab *"Eksplorasi dataset e-commerce"* pada Pertemuan 1. Langkahnya sama dengan praktikum di spreadsheet: membuka data, mengenali jenis kolom, memfilter, meringkas dengan pivot table, dan membuat grafik pertama. Notebook ini juga berisi latihan kualitas data dan pseudonimisasi data pribadi sesuai UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi.
+Repositori ini berisi materi perkuliahan: slide, notebook hands-on (Google Colab), dataset latihan, dan tugas mingguan. RPS mata kuliah ini disusun dengan pendekatan *Outcome Based Education* (OBE).
 
----
-
-## Tujuan pembelajaran
-
-Setelah menyelesaikan notebook ini, mahasiswa mampu:
-
-1. **Menjelaskan peran statistika** dalam pengambilan keputusan bisnis digital (C2).
-2. **Mengklasifikasikan data** menurut jenis (kategorik/numerik) dan skala pengukuran NOIR (C2).
-3. **Mengenali sumber data digital** serta menilai kualitasnya (C2).
-4. **Menerapkan prinsip etika data** sesuai UU PDP (A3).
-
----
-
-## Isi file
-
-| File | Keterangan |
+| | |
 |---|---|
-| `index.html` | Penampil slide online (untuk GitHub Pages) |
-| `slides/` | Gambar 30 slide (`slide-01.webp` … `slide-30.webp`) dan `cover.jpg` untuk pratinjau tautan |
-| `Pertemuan_1_Data_dalam_Bisnis_Digital.pptx` | File slide asli |
-| `Pertemuan_1_Hands_on_Data_Bisnis_Digital.ipynb` | Notebook praktikum utama |
-| `README.md` | Panduan ini |
-| `.nojekyll` | Agar GitHub Pages menyajikan file apa adanya |
-| `dataset_ecommerce.xlsx` / `.csv` | *Dibuat otomatis* saat sel bagian 2.1 notebook dijalankan (tidak perlu diunggah) |
+| **Kode MK** | [BD-xxx] |
+| **Bobot** | 3 SKS (2 teori + 1 praktikum) |
+| **Semester** | 3 (Ganjil) 2026/2027 |
+| **Prasyarat** | Matematika Bisnis; Pengantar Bisnis Digital |
+| **Dosen pengampu** | [Nama dosen] · [email] |
+| **LMS kelas** | [tautan LMS] |
 
 ---
 
-   Tautan Colab-nya menjadi `https://colab.research.google.com/github/USERNAME/NAMA-REPOSITORI/blob/main/Pertemuan_1_Hands_on_Data_Bisnis_Digital.ipynb`, yang juga bisa dibagikan langsung ke mahasiswa.
+## Daftar isi
 
-**Memperbarui slide:** jika `.pptx` diubah, ekspor ulang tiap slide sebagai gambar (PowerPoint: **File → Export → PNG**, pilih *All slides*), ubah ke 1920×1080, beri nama `slide-01.webp` dst. (atau `.png`, lalu sesuaikan ekstensi pada baris `const src = ...` di `index.html`). Jika jumlah atau judul slide berubah, sesuaikan juga daftar `SLIDES` di `index.html`.
+- [Capaian pembelajaran](#capaian-pembelajaran)
+- [Struktur repositori](#struktur-repositori)
+- [Jadwal 16 pertemuan](#jadwal-16-pertemuan)
+- [Pertemuan 1 — Data dalam Bisnis Digital](#pertemuan-1--data-dalam-bisnis-digital)
+- [Pertemuan 2 — Data Wrangling & EDA](#pertemuan-2--data-wrangling--eda)
+- [Cara menjalankan notebook](#cara-menjalankan-notebook)
+- [Penilaian](#penilaian)
+- [Referensi](#referensi)
+- [Catatan untuk dosen](#catatan-untuk-dosen)
 
 ---
 
-## Cara menjalankan
+## Capaian pembelajaran
 
-### Opsi A: Google Colab (disarankan)
-1. Buka [colab.research.google.com](https://colab.research.google.com) dan masuk dengan akun Google.
-2. Pilih **File → Upload notebook**, lalu unggah file `.ipynb`.
-3. Jalankan sel dari atas ke bawah dengan `Shift + Enter`, atau **Runtime → Run all**.
+| Kode | Capaian Pembelajaran Mata Kuliah (CPMK) | Bobot |
+|---|---|---|
+| CPMK-1 | Menjelaskan peran statistika dan data dalam bisnis digital serta menerapkan prinsip etika data | 10% |
+| CPMK-2 | Mendeskripsikan data bisnis dengan statistika deskriptif dan probabilitas | 17% |
+| CPMK-3 | Menganalisis pertanyaan bisnis dengan statistika inferensial (estimasi, uji hipotesis, A/B testing) | 21% |
+| CPMK-4 | Menganalisis dan mengevaluasi model regresi dan peramalan | 24% |
+| CPMK-5 | Merancang dashboard dan *data story* untuk rekomendasi bisnis | 28% |
 
-Tidak perlu memasang apa pun. Semua library sudah tersedia di Colab.
+Rincian CPL, Sub-CPMK, rubrik, dan pemetaan asesmen ada di dokumen RPS (`docs/`).
 
-### Opsi B: Jupyter di komputer sendiri
-Pasang Python 3.9 atau lebih baru, lalu:
+---
 
-```bash
-pip install pandas numpy matplotlib openpyxl jupyter
-jupyter notebook Pertemuan_1_Hands_on_Data_Bisnis_Digital.ipynb
+## Struktur repositori
+
+```
+.
+├── README.md
+├── docs/
+│   ├── RPS_OBE_Business_Statistics_Data_Visualization.docx
+│   └── RPS_Business_Statistics_Data_Visualization.pptx        # presentasi RPS / kontrak kuliah
+├── pertemuan-01/
+│   └── Pertemuan_1_Data_dalam_Bisnis_Digital.pptx
+├── pertemuan-02/
+│   ├── Pertemuan_2_Data_Wrangling_EDA.pptx
+│   ├── Pertemuan_2_Data_Wrangling_EDA.ipynb                   # hands-on + Tugas 2
+│   └── data/
+│       ├── transaksi_tokokita_kotor.csv                       # dataset hands-on
+│       └── transaksi_tugas2_kotor.csv                         # dataset Tugas 2
+└── pertemuan-03/ …
 ```
 
 ---
 
-## Alur notebook
+## Jadwal 16 pertemuan
 
-| Bagian | Topik | Kaitan dengan slide | Latihan |
-|---|---|---|---|
-| 1 | Persiapan library | – | |
-| 2 | Membuka dan mengenali dataset | Praktikum langkah 1–2 | |
-| 3 | Jenis data dan skala pengukuran (NOIR) | Slide 12–18 | ✏️ Latihan cepat (dicek otomatis) |
-| 4 | Filter dan sort | Praktikum langkah 4 | ✏️ Latihan 4 |
-| 5 | Pivot table dan grafik batang | Praktikum langkah 5–6 | ✏️ Latihan 5 |
-| 6 | Struktur data: cross-section, time series, panel | Slide 15 | |
-| 7 | Statistika deskriptif vs inferensial | Slide 8 | |
-| 8 | Dari data ke keputusan bisnis | Slide 7, 9 | Diskusi |
-| 9 | Memeriksa kualitas data | Slide 22 | ✏️ Latihan 9 |
-| 10 | Etika data dan pseudonimisasi | Slide 24–27 | ✏️ Diskusi kasus TokoKita |
-| 11 | Latihan mandiri | – | ✏️ 5 soal |
-| 12 | Persiapan Tugas 1 | Slide 29 | Alat bantu profil kolom |
+| Minggu | Topik | Sub-CPMK | Asesmen | Materi |
+|:---:|---|:---:|---|:---:|
+| 1 | Data dalam bisnis digital: jenis data, skala, sumber data, etika & UU PDP | 1 | Tugas 1: klasifikasi dataset | ✅ |
+| 2 | Data wrangling & EDA dengan pandas / Power Query | 2 | Tugas 2: laporan pembersihan data | ✅ |
+| 3 | Statistika deskriptif | 3 | Tugas analisis deskriptif UMKM | ⏳ |
+| 4 | Probabilitas & teorema Bayes | 4 | Kuis 1 | ⏳ |
+| 5 | Distribusi binomial, Poisson, normal | 4 | Tugas kasus distribusi | ⏳ |
+| 6 | Sampling & interval kepercayaan | 5 | Tugas estimasi | ⏳ |
+| 7 | Uji hipotesis & A/B testing | 6 | Laporan A/B test | ⏳ |
+| 8 | **Ujian Tengah Semester** | 1–6 | UTS (20%) | — |
+| 9 | ANOVA & chi-square | 7 | Tugas segmentasi | ⏳ |
+| 10 | Korelasi & regresi linier sederhana | 8 | Tugas regresi | ⏳ |
+| 11 | Regresi berganda + penetapan topik proyek | 8 | Laporan model | ⏳ |
+| 12 | Deret waktu & peramalan | 9 | Tugas forecasting | ⏳ |
+| 13 | Prinsip visualisasi data | 10 | Makeover visualisasi | ⏳ |
+| 14 | Dashboard & KPI bisnis digital | 11 | Progres dashboard | ⏳ |
+| 15 | Data storytelling & presentasi proyek | 8, 9, 11, 12 | Proyek akhir (20%) | ⏳ |
+| 16 | **Ujian Akhir Semester** | 7–11 | UAS (15%) | — |
 
-Perkiraan waktu: **±170 menit** (sesuai alokasi praktikum lab).
-
----
-
-## Tentang dataset
-
-Dataset berisi **1.000 pesanan fiktif** dari sebuah toko online selama September 2026. Data dibuat dengan kode memakai *seed* tetap (`2026`), sehingga **hasil semua mahasiswa sama** dan mudah dibahas bersama di kelas.
-
-| Kolom | Isi | Jenis data | Skala |
-|---|---|---|---|
-| `order_id` | Nomor pesanan | Kategorik | Nominal |
-| `tanggal_pesan` | Tanggal pesanan | Numerik | Interval |
-| `kategori` | Fashion, Elektronik, Kecantikan, Rumah tangga | Kategorik | Nominal |
-| `ukuran` | S, M, L, XL (hanya produk Fashion) | Kategorik | Ordinal |
-| `kota` | Kota tujuan pengiriman | Kategorik | Nominal |
-| `kode_pos` | Kode pos tujuan | Kategorik | Nominal |
-| `metode_bayar` | E-wallet, Transfer bank, COD, dll. | Kategorik | Nominal |
-| `harga` | Harga barang (Rp) | Numerik kontinu | Rasio |
-| `jumlah` | Jumlah barang dibeli | Numerik diskrit | Rasio |
-| `lama_kirim_hari` | Lama pengiriman (hari) | Numerik diskrit | Rasio |
-| `rating` | Rating ulasan ★1–5 | Kategorik | Ordinal |
-
-> ⚠️ Tabel di atas adalah **kunci jawaban** latihan bagian 3. Mahasiswa sebaiknya mencoba mengklasifikasikan sendiri terlebih dahulu.
-
-**Memakai dataset dari LMS:** jika dosen membagikan `dataset_ecommerce.xlsx` sendiri, unggah file tersebut ke Colab lalu jalankan mulai bagian 2.2. Nama kolom bisa berbeda, jadi sesuaikan kode setelahnya.
+✅ tersedia · ⏳ menyusul
 
 ---
 
-## Tugas 1 · Individu
+## Pertemuan 1 — Data dalam Bisnis Digital
 
-**Tenggat:** sebelum Pertemuan 2 · **Kumpul di:** LMS, folder Tugas 1 · **Format:** PDF maks. 3 halaman + file dataset
+> **Sub-CPMK-1** · C2, A3 · bobot 5%
 
-1. Pilih satu dataset e-commerce dari Kaggle (minimal **8 kolom** dan **500 baris**).
+<!-- TODO: lengkapi bagian ini (tautan slide, file Tugas 1, tenggat) -->
+
+**Materi:** kontrak kuliah · peran statistika dalam bisnis digital · statistika deskriptif vs inferensial · empat tingkat analitik · jenis data dan skala pengukuran (NOIR) · struktur data · sumber data digital · kualitas data · etika data dan UU No. 27 Tahun 2022 tentang Pelindungan Data Pribadi.
+
+**File:**
+- [`Pertemuan_1_Data_dalam_Bisnis_Digital.pptx`](pertemuan-01/Pertemuan_1_Data_dalam_Bisnis_Digital.pptx)
+
+**Praktikum (170 menit):** eksplorasi dataset e-commerce di Excel / Google Sheets: filter, sort, pivot table, dan grafik pertama.
+
+**Tugas 1 (individu) — Klasifikasi dataset e-commerce**
+1. Pilih satu dataset e-commerce dari Kaggle (minimal 8 kolom, 500 baris).
 2. Buat tabel klasifikasi: nama kolom, jenis data, skala, dan alasan.
-3. Identifikasi minimal **tiga masalah kualitas data**.
-4. Tandai kolom yang termasuk **data pribadi** menurut UU PDP dan usulkan cara menyamarkannya.
-5. Tulis **dua pertanyaan bisnis** yang bisa dijawab dengan dataset tersebut.
+3. Identifikasi minimal tiga masalah kualitas data.
+4. Tandai kolom yang termasuk data pribadi menurut UU PDP dan usulkan cara menyamarkannya.
+5. Tulis dua pertanyaan bisnis yang bisa dijawab dengan dataset tersebut.
 
-Bagian 12 notebook menyediakan fungsi `profil_kolom()` dan `cek_kualitas()` untuk membuat draf tabel klasifikasi. **Jenis dan skala data tetap harus ditentukan sendiri beserta alasannya.** Komputer tidak memahami makna kolom (contoh: kode pos terlihat seperti angka, padahal label).
+*Format:* PDF maks. 3 halaman + file dataset · *Tenggat:* sebelum Pertemuan 2 · [tautan pengumpulan]
 
-| Komponen penilaian | Bobot |
+---
+
+## Pertemuan 2 — Data Wrangling & EDA
+
+> **Sub-CPMK-2** · C3, P3 · bobot 5%
+
+**Materi:** alur enam langkah data wrangling (*import → inspect → clean → transform → explore → save*) · Google Colab dan DataFrame pandas · duplikat · tipe data · label kategori · missing value · nilai tidak valid · outlier (metode IQR) · kolom turunan dan transformasi log · EDA · cleaning log · alternatif dengan Excel Power Query.
+
+**File:**
+- [`Pertemuan_2_Data_Wrangling_EDA.pptx`](pertemuan-02/Pertemuan_2_Data_Wrangling_EDA.pptx)
+- [`Pertemuan_2_Data_Wrangling_EDA.ipynb`](pertemuan-02/Pertemuan_2_Data_Wrangling_EDA.ipynb) &nbsp; [![Buka di Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/USERNAME/REPO/blob/main/pertemuan-02/Pertemuan_2_Data_Wrangling_EDA.ipynb)
+
+> Ganti `USERNAME/REPO` pada tautan Colab dengan nama akun dan repositori GitHub Anda.
+
+### Isi notebook hands-on
+
+| Bagian | Isi | Waktu |
+|:---:|---|:---:|
+| 0 | Persiapan & memuat data | 10' |
+| 1 | Mengenali data: `shape`, `info`, `describe`, `value_counts`, `isna` | 20' |
+| 2 | Membersihkan data: duplikat, tipe data, label, missing value, nilai tidak valid, outlier | 70' |
+| 3 | Transformasi: `total`, `bulan`, `hari`, `akhir_pekan`, `kelompok_belanja`, `log_total` | 20' |
+| 4 | EDA: ringkasan per kategori, kota, waktu, metode bayar, heatmap | 35' |
+| 5 | Menyimpan data bersih & *cleaning log* | 5' |
+| 6 | Tugas 2 (5 soal) | di rumah |
+
+### Dataset
+
+Kedua dataset **fiktif** dan dibuat khusus untuk latihan. Masalah kualitas data sengaja disisipkan.
+
+| File | Baris | Periode | Kegunaan |
+|---|:---:|---|---|
+| `transaksi_tokokita_kotor.csv` | 1.537 | Agu–Sep 2026 | Hands-on di kelas |
+| `transaksi_tugas2_kotor.csv` | 1.230 | Jul–Sep 2026 | Tugas 2 |
+
+| Kolom | Keterangan |
 |---|---|
-| Ketepatan klasifikasi | 40% |
-| Masalah kualitas data | 25% |
-| Identifikasi data pribadi | 20% |
-| Pertanyaan bisnis | 15% |
+| `order_id` | ID pesanan |
+| `tanggal` | Tanggal pesanan (dua format: `YYYY-MM-DD` dan `DD/MM/YYYY`) |
+| `id_pelanggan` | ID pelanggan (sudah dipseudonimkan) |
+| `kota` | Kota pembeli (label tidak seragam, ada yang kosong) |
+| `kategori` | Fashion, Elektronik, Kecantikan, Rumah Tangga, Makanan |
+| `harga` | Harga satuan (sebagian berformat teks `Rp 149.500`) |
+| `jumlah` | Jumlah unit dibeli |
+| `metode_bayar` | E-Wallet, COD, Transfer Bank, Kartu Kredit (label tidak seragam) |
+| `rating` | Rating 1–5 (ada yang kosong dan tidak valid) |
+| `ongkir` | Ongkos kirim (hanya di dataset Tugas 2) |
+
+### Tugas 2 (individu) — Laporan Praktikum Pembersihan Data Transaksi
+
+Bobot **3% nilai akhir** · kerjakan di bagian 6 notebook dengan dataset `transaksi_tugas2_kotor.csv`.
+
+| No | Soal | Bobot |
+|:---:|---|:---:|
+| 1 | **Profil data.** Laporkan ukuran data, tipe tiap kolom, serta jumlah dan persentase data kosong. Sebutkan kolom yang tipenya salah dan jelaskan mengapa. | 15% |
+| 2 | **Duplikat & label.** Hapus duplikat persis, lalu seragamkan `kota` dan `metode_bayar`. Laporkan baris yang dihapus serta nilai unik sebelum dan sesudah. | 20% |
+| 3 | **Tipe data & missing value.** Ubah `harga` menjadi angka dan `tanggal` menjadi tipe tanggal. Tangani data kosong setiap kolom dan jelaskan alasan strategi Anda. | 20% |
+| 4 | **Nilai tidak valid & outlier.** Terapkan aturan validasi `rating` dan `jumlah`. Deteksi outlier `harga` dengan IQR per kategori; bedakan kesalahan dan yang nyata, lalu jelaskan tindakan. | 25% |
+| 5 | **EDA & insight.** Buat `total = harga × jumlah + ongkir`, tiga visualisasi berbeda jenis, tiga insight (temuan + angka + implikasi), dan cleaning log lengkap. | 20% |
+
+**Kriteria umum:** kode berjalan dari awal sampai akhir tanpa error · setiap keputusan pembersihan dijelaskan di sel teks · angka yang dilaporkan sama dengan output kode.
+
+*Format:* `.ipynb` + PDF (*File → Print*) · *Tenggat:* sebelum Pertemuan 3 · [tautan pengumpulan]
 
 ---
 
-## Catatan etika dan penggunaan AI
+## Cara menjalankan notebook
 
-- Semua nama, nomor HP, alamat, dan data pelanggan di notebook ini **fiktif**.
-- Jangan mengunggah data pribadi asli (milik sendiri, keluarga, atau tempat kerja) ke notebook maupun ke layanan publik.
-- Sesuai kontrak kuliah, penggunaan AI **boleh** untuk belajar dan memeriksa kode, tetapi **wajib diungkapkan** dan dipahami sendiri.
-- Ringkasan pasal UU PDP di notebook bersifat edukatif dan **bukan nasihat hukum**. Rujukan resmi: UU No. 27 Tahun 2022 (JDIH BPK).
+### Google Colab (disarankan)
+1. Klik tombol **Buka di Colab** pada pertemuan terkait, atau buka [colab.research.google.com](https://colab.research.google.com) lalu *File → Upload notebook*.
+2. Unggah file CSV melalui panel **Files** (ikon folder di kiri), atau jalankan sel pemuat data dan pilih file ketika diminta.
+3. Jalankan sel dari atas ke bawah dengan **Shift + Enter**. Jika muncul error yang aneh: *Runtime → Restart and run all*.
+
+### Lokal (Jupyter)
+```bash
+python -m venv .venv
+source .venv/bin/activate          # Windows: .venv\Scripts\activate
+pip install pandas numpy matplotlib seaborn jupyter
+jupyter notebook
+```
+Letakkan file CSV di folder yang sama dengan notebook.
 
 ---
 
-## Persiapan Pertemuan 2 · Data Wrangling & EDA
+## Penilaian
 
-- Siapkan akun Google untuk Colab.
-- Bawa dataset Tugas 1.
-- Baca Anderson dkk., *Statistics for Business and Economics*, bab 1 (*Data and Statistics*).
+| Komponen | Bobot |
+|---|:---:|
+| Tugas, praktikum, kuis | 45% |
+| Ujian Tengah Semester (minggu 8) | 20% |
+| Proyek akhir kelompok (minggu 15) | 20% |
+| Ujian Akhir Semester (minggu 16) | 15% |
+
+Syarat mengikuti UAS: kehadiran minimal 75%. Asesmen berbasis *case method* dan proyek berbobot 59% dari nilai akhir.
+
+**Kebijakan penggunaan AI:** boleh dipakai untuk belajar dan memeriksa kode, tetapi wajib diungkapkan, dan Anda harus memahami setiap baris yang dikumpulkan.
 
 ---
 
-## Masalah umum
+## Referensi
 
-| Masalah | Solusi |
-|---|---|
-| `NameError: name 'df' is not defined` | Sel sebelumnya belum dijalankan. Pilih **Runtime → Run before**. |
-| `FileNotFoundError` | File belum diunggah, atau nama file salah ketik. Cek panel folder di kiri Colab. |
-| File yang diunggah hilang | Colab menghapus file saat sesi berakhir. Unggah ulang, atau simpan di Google Drive. |
-| Hasil berbeda dengan teman | Pastikan sel pembuat dataset (bagian 2.1) tidak diubah dan dijalankan ulang dari awal. |
+**Utama**
+1. Anderson, D. R., Sweeney, D. J., Williams, T. A., dkk. (2020). *Statistics for Business and Economics* (14th ed.). Cengage Learning.
+2. Levine, D. M., Szabat, K. A., & Stephan, D. F. (2021). *Statistics for Managers Using Microsoft Excel* (9th ed.). Pearson.
+3. Knaflic, C. N. (2015). *Storytelling with Data*. Wiley.
+
+**Pendukung**
+- McKinney, W. (2022). *Python for Data Analysis* (3rd ed.). O'Reilly.
+- Wilke, C. O. (2019). *Fundamentals of Data Visualization*. O'Reilly.
+- Hyndman, R. J., & Athanasopoulos, G. (2021). *Forecasting: Principles and Practice* (3rd ed.). OTexts.
+- Few, S. (2013). *Information Dashboard Design* (2nd ed.). Analytics Press.
+- Undang-Undang Republik Indonesia Nomor 27 Tahun 2022 tentang Pelindungan Data Pribadi.
+
+---
+
+## Catatan untuk dosen
+
+- **Kunci jawaban** (mis. `Kunci_Jawaban_Tugas_2.ipynb`) jangan diunggah ke repositori publik. Simpan di folder terpisah, lalu tambahkan ke `.gitignore`:
+  ```
+  kunci/
+  *Kunci_Jawaban*
+  ```
+- Semua angka di slide Pertemuan 2 dihitung dari hasil menjalankan notebook hands-on, sehingga sama dengan output yang dilihat mahasiswa.
+- Isian bertanda `[ ]` (nama dosen, kode MK, tautan LMS, tenggat) perlu disesuaikan.
+
+---
+
+*Terakhir diperbarui: Oktober 2026 · Materi untuk keperluan pendidikan. Seluruh dataset latihan bersifat fiktif.*
